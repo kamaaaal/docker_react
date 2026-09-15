@@ -1,0 +1,11 @@
+sudo: required # any docker command we need sudo 
+services: 
+  - docker # tell travis that the environment needs docker
+
+# before test (install) we are setting up the environment
+before_install:
+  - docker build -f Dockerfile.dev -t kamaaaal/docker-react . 
+
+# scripts are series of command to test
+script:
+  - docker run kamaaaal/docker-react npm run test -- --coverage # this expects the command to compelete or exit automatialyy
