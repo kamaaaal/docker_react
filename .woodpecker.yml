@@ -1,6 +1,6 @@
 steps:
-  - name: hello
-    image: alpine
+  - name: Test
+    image: docker
     commands:
-      - echo "Hello from Woodpecker!"
-      - echo "CI is working!"
+      - docker build -f Dockerfile.dev -t react_web . 
+      - docker run react_web npm run test -- --coverage
