@@ -1,6 +1,6 @@
 steps:
   - name: Test
-    image: docker
+    image: docker:dind
     commands:
       - docker build -f Dockerfile.dev -t react_web . 
       - docker run react_web npm run test -- --coverage
