@@ -2,15 +2,21 @@ services:
   - name: docker
     image: docker:dind
     privileged: true
+    command:
+      - dockerd
+      - --host=unix:///dind/docker.sock
+    volumes:
+      - /opt/woodpeckerci/dind-socket:/dind
 
 steps:
-  - name: build
+  - name: test
     image: docker:cli
     environment:
-      DOCKER_HOST: tcp://docker:2376
-      DOCKER_TLS_VERIFY: "1"
-      DOCKER_CERT_PATH: /dind-certs/client
+      DOCKER_HOST: unix:///dind/docker.sock
+    volumes:
+      - /opt/woodpeckerci/dind-socket:/dind
     commands:
+      - ls -l /dind
       - docker version
       - docker build -f Dockerfile.dev -t react_web .
-      - docker run --rm react_web npm test
+      - docker run --rm react_web npm run test -- --coverage
