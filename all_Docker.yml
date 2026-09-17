@@ -1,0 +1,13 @@
+services:
+  - name: docker
+    image: docker:dind
+    privileged: true
+
+steps:
+  - name: build
+    image: docker:cli
+    environment:
+      DOCKER_HOST: tcp://docker:2376
+      DOCKER_TLS_VERIFY: "1"
+      DOCKER_CERT_PATH: /dind-certs/client
+    ...
