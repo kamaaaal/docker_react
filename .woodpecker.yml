@@ -1,6 +1,6 @@
 services:
   - name: docker
-    image: docker:dind
+    image: docker:28-dind
     privileged: true
     environment:
       DOCKER_TLS_CERTDIR: /dind-certs
@@ -11,7 +11,7 @@ services:
 
 steps:
   - name: test
-    image: docker:cli
+    image: docker:28-cli
     environment:
       DOCKER_HOST: tcp://docker:2376
       DOCKER_CERT_PATH: /dind-certs/client
