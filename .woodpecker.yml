@@ -21,4 +21,4 @@ steps:
     commands:
       - docker version
       - docker build -f Dockerfile.dev -t react_web .
-      - docker run --rm react_web CI=true npm run test -- --coverage
+      - docker run --rm react_web -e CI=true npm run test -- --coverage
