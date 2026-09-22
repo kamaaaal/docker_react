@@ -2,8 +2,9 @@ services:
   - name: docker
     image: docker:dind
     privileged: true
-    command:
-      - dockerd --host=unix:///dind/docker.sock
+    commands:
+      - dockerd 
+      - --host=unix:///dind/docker.sock
     volumes:
       - /opt/woodpeckerci/dind-socket:/dind
 
