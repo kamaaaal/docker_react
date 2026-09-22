@@ -6,6 +6,8 @@ services:
       - dockerd --host=unix:///dind/docker.sock
     volumes:
       - /opt/woodpeckerci/dind-socket:/dind
+    environment:
+      DOCKER_HOST: unix:///dind/docker.sock
 
 steps:
   - name: test
