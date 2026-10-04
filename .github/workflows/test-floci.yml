@@ -12,9 +12,15 @@ jobs:
         run: |
           echo "Floci endpoint: ${{ vars.FLOCI_ENDPOINT }}"
 
-      - name: Check Floci
-        run: |
-          curl -v "${{ vars.FLOCI_ENDPOINT }}"
+      - name: configure aws 
+        uses: aws-actions/configure-aws-credentials@v5
+        with: 
+          aws-access-key-id:  ${{ secrets.FLOCI_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.FLOCI_AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
       
-      - name: pritn secrets
-        run: echo "${{ secrets.FLOCI_AWS_SECRET_ACCESS_KEY }}" && echo "${{ secrets.FLOCI_AWS_ACCESS_KEY_ID }}"
+      - name: Check Floci identity
+        run: |
+          aws sts get-caller-identity \
+            --endpoint-url "${{ vars.FLOCI_ENDPOINT }}"
+      
