@@ -1,4 +1,4 @@
-name: Test-floci
+name: Test Floci
 
 on:
   workflow_dispatch:
@@ -8,19 +8,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print Floci endpoint
+      - name: Configure Floci credentials
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.FLOCI_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.FLOCI_AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
         run: |
-          echo "Floci endpoint: ${{ vars.FLOCI_ENDPOINT }}"
+          echo "AWS credentials configured"
 
-      - name: configure aws 
-        uses: aws-actions/configure-aws-credentials@v5
-        with: 
-          aws-access-key-id:  ${{ secrets.FLOCI_AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.FLOCI_AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-      
-      - name: Check Floci identity
+      - name: Test Floci
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.FLOCI_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.FLOCI_AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
         run: |
           aws sts get-caller-identity \
             --endpoint-url "${{ vars.FLOCI_ENDPOINT }}"
-      
