@@ -15,10 +15,6 @@ jobs:
     steps:
 
       - name: Test Floci
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.FLOCI_AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.FLOCI_AWS_SECRET_ACCESS_KEY }}
-          AWS_DEFAULT_REGION: us-east-1
         run: |
           aws sts get-caller-identity \
             --endpoint-url "${{ vars.FLOCI_ENDPOINT }}"
