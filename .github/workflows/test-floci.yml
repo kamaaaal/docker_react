@@ -13,8 +13,11 @@ jobs:
       AWS_DEFAULT_REGION: us-east-1
 
     steps:
-
       - name: Test Floci
         run: |
           aws sts get-caller-identity \
             --endpoint-url "${{ vars.FLOCI_ENDPOINT }}"
+      - name: List ECR repositories
+        run: |
+          aws ecr describe-repositories \
+            --endpoint-url "$FLOCI_ENDPOINT"
