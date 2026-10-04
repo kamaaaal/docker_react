@@ -20,4 +20,4 @@ jobs:
       - name: List ECR repositories
         run: |
           aws ecr describe-repositories \
-            --endpoint-url "$FLOCI_ENDPOINT"
+            --endpoint-url "${{ vars.FLOCI_ENDPOINT }}"
