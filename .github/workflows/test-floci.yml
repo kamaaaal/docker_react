@@ -1,0 +1,20 @@
+name: Test-floci
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print Floci endpoint
+        run: |
+          echo "Floci endpoint: ${{ vars.FLOCI_ENDPOINT }}"
+
+      - name: Check Floci
+        run: |
+          curl -v "${{ vars.FLOCI_ENDPOINT }}"
+      
+      - name: pritn secrets
+        run: echo "${{ secrets.FLOCI_AWS_SECRET_ACCESS_KEY }}" && echo "${{ secrets.FLOCI_AWS_ACCESS_KEY_ID }}"
